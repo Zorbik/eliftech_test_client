@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export const ShopsPage = () => {
   const navigate = useNavigate();
@@ -63,7 +63,9 @@ export const ShopsPage = () => {
         </Grid>
 
         <Grid item xs={9}>
-          <Outlet />
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
         </Grid>
       </Grid>
     </>

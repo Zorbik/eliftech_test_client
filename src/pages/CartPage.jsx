@@ -1,9 +1,12 @@
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Button, Container, Grid, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { CartList } from "../components/Cart/CartList";
 import { useDispatch, useSelector } from "react-redux";
 import { useCreateOrUpdateUserMutation } from "../redux/users/userApi";
 import { clearCart } from "../redux/cart/cartSlice";
+import { schema } from "../components/schema";
 
 const initialForm = {
   name: "",
@@ -18,6 +21,13 @@ export const CartPage = () => {
   const data = useSelector((state) => state.cart.items);
   const [orderDone, setOrderDone] = useState(false);
   const [makeOrder] = useCreateOrUpdateUserMutation();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({ resolver: yupResolver(schema) });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +46,7 @@ export const CartPage = () => {
     }
     setOrderDone(true);
     dispatch(clearCart());
+    reset();
   };
 
   const totalPrice = data.reduce(
@@ -57,6 +68,9 @@ export const CartPage = () => {
                 sx={{ marginY: "20px" }}
                 fullWidth
                 required
+                {...register("name")}
+                error={errors.name ? true : false}
+                helperText={errors.name?.message}
                 label="Name:"
                 variant="outlined"
                 name="name"
@@ -67,6 +81,9 @@ export const CartPage = () => {
                 sx={{ marginY: "20px" }}
                 fullWidth
                 required
+                {...register("email")}
+                error={errors.email ? true : false}
+                helperText={errors.email?.message}
                 label="Email:"
                 variant="outlined"
                 name="email"
@@ -77,6 +94,9 @@ export const CartPage = () => {
                 sx={{ marginY: "20px" }}
                 fullWidth
                 required
+                {...register("phone")}
+                error={errors.phone ? true : false}
+                helperText={errors.phone?.message}
                 label="Phone:"
                 variant="outlined"
                 name="phone"
@@ -87,6 +107,9 @@ export const CartPage = () => {
                 sx={{ marginY: "20px" }}
                 fullWidth
                 required
+                {...register("address")}
+                error={errors.address ? true : false}
+                helperText={errors.address?.message}
                 label="Address:"
                 variant="outlined"
                 name="address"
@@ -115,7 +138,7 @@ export const CartPage = () => {
               </Typography>
             </Button>
             <Typography variant="h4">Total price: {totalPrice}</Typography>
-            <Button onClick={handleClick}>
+            <Button onClick={handleSubmit(handleClick)}>
               <Typography variant="h5" component="span">
                 Submit
               </Typography>

@@ -1,21 +1,47 @@
-import { Container } from "@mui/material";
+import { Divider, Grid, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import { HistoryItem } from "./HistoryItem";
 
 export const HistoryList = ({ order }) => {
+  const totalPrice = order.reduce(
+    (total, item) => total + item.price * item.quantity,
+    0
+  );
+
+  const totalCount = order.reduce((total, item) => total + item.quantity, 0);
+
   return (
     <>
-      <Container
+      <Grid
+        container
+        spacing={2}
         sx={{
-          display: "flex",
-          flexDirection: "column",
           overflow: "auto",
           height: "70hv",
         }}
       >
-        {order &&
-          order.map((item) => <HistoryItem key={item._id} item={item} />)}
-      </Container>
+        <Grid item xs={12} container spacing={2}>
+          {order &&
+            order.map((item) => (
+              <Grid item xs={6} key={item._id}>
+                <HistoryItem item={item} />
+              </Grid>
+            ))}
+        </Grid>
+        <Grid
+          item
+          xs={12}
+          sx={{
+            display: "flex",
+            justifyContent: "space-around",
+            marginBottom: "50px",
+          }}
+        >
+          <Typography variant="h4">Total price: {totalPrice}</Typography>
+          <Typography variant="h4">Total count: {totalCount}</Typography>
+        </Grid>
+        <Divider sx={{ color: "#000" }} />
+      </Grid>
     </>
   );
 };

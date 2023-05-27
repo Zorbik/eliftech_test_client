@@ -15,7 +15,7 @@ export const HistoryItem = ({ item }) => {
         justifyContent: "space-around",
         width: "100%",
         height: "200px",
-        marginY: "50px",
+        gap: 10,
       }}
     >
       <CardMedia
