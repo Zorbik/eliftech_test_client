@@ -1,4 +1,4 @@
-import { Divider, Grid, Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import { HistoryItem } from "./HistoryItem";
 
@@ -40,7 +40,6 @@ export const HistoryList = ({ order }) => {
           <Typography variant="h4">Total price: {totalPrice}</Typography>
           <Typography variant="h4">Total count: {totalCount}</Typography>
         </Grid>
-        <Divider sx={{ color: "#000" }} />
       </Grid>
     </>
   );

@@ -9,16 +9,27 @@ import {
 } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Suspense, useEffect, useState } from "react";
+import { useToast } from "../hooks/useToast";
 
 export const ShopsPage = () => {
   const navigate = useNavigate();
   const [isDisabled, setIsDisabled] = useState(false);
   const [shop, setShop] = useState("");
   const cart = useSelector((state) => state.cart.items);
+  const { showToast, Toast } = useToast();
 
   useEffect(() => {
-    if (cart?.length) {
+    if (cart?.length && cart?.length === 1) {
       setIsDisabled(cart[0].shop !== shop);
+      showToast("An order can only be made from one shop", "info");
+      setTimeout(
+        () =>
+          showToast(
+            "To order from another store, please empty your shopping cart",
+            "info"
+          ),
+        3000
+      );
     }
   }, [cart, shop]);
 
@@ -67,6 +78,7 @@ export const ShopsPage = () => {
             <Outlet />
           </Suspense>
         </Grid>
+        <Toast />
       </Grid>
     </>
   );
