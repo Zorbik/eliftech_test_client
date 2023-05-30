@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import { ShopsPage } from "./pages/ShopsPage";
 import { CartPage } from "./pages/CartPage";
@@ -16,7 +16,7 @@ function App() {
           </Route>
           <Route path="cart" element={<CartPage />} />
           <Route path="history" element={<HistoryPage />} />
-          <Route path="*" element={<ShopsPage />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Route>
       </Routes>
     </Suspense>
