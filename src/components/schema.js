@@ -4,7 +4,7 @@ export const schema = yup.object().shape({
   name: yup
     .string()
     .trim()
-    .min(6, "Minimal name length is 3 symbols")
+    .min(3, "Minimal name length is 3 symbols")
     .max(32, "Max name length is 32 symbols")
     .required("Name is required"),
   email: yup
