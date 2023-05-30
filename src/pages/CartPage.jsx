@@ -37,8 +37,7 @@ export const CartPage = () => {
     }));
   };
 
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const handleClick = async () => {
     try {
       await makeOrder({ ...form, order: data });
     } catch (error) {
