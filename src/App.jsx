@@ -16,6 +16,7 @@ function App() {
           </Route>
           <Route path="cart" element={<CartPage />} />
           <Route path="history" element={<HistoryPage />} />
+          <Route path="*" element={<ShopsPage />} />
         </Route>
       </Routes>
     </Suspense>
